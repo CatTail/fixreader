@@ -4,7 +4,26 @@
 
 ## Installation
 
+    npm install fixreader
+
 ## Usage
+With fixture files
+
+    test
+    ├── fixtures
+    │   ├── complete
+    │   │   ├── file.js
+    │   │   └── file.txt
+    │   ├── directory
+    │   │   └── file.txt
+    │   ├── text.txt
+    │   └── tmp
+    └── index.js
+
+you can read `test/fixtures/directory/file.txt` by
+
+    var fixtures = require('fixreader')();
+    console.log(fixtures.directory.file);
 
 ## License
 
