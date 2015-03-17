@@ -30,6 +30,13 @@ describe('fixreader', function() {
         // still have the content
         fixtures.tmp.file.should.equal(content);
     });
+
+    it('should support post data process', function() {
+        fixtures = require('..')({handler: function(content) {
+            return JSON.parse(content);
+        }});
+        fixtures.handler.should.eql({hello: 'world'});
+    });
 });
 
 function read(path) {

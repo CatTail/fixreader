@@ -7,12 +7,15 @@ var debug = require('debug')('fixreader');
  * {
  *     path: fixture directory path, default to "test/fixtures"
  *     trim: whether to trim fixture extension, default to true
+ *     handler: function(){}
  * }
  */
 module.exports = function(options) {
     options = options || {};
     options.path = options.path === undefined ? 'test/fixtures' : options.path;
     options.trim = options.trim === undefined ? true : options.trim;
+    options.handler = options.handler === undefined ? identity : options.handler;
+
     debug('options', options);
 
     return proxy(options.path, {}, options);
@@ -32,6 +35,7 @@ function proxy(prefix, obj, options) {
                 descriptor.get = function() {
                     if (!cache) {
                         cache = fs.readFileSync(pathname, 'utf8');
+                        cache = options.handler(cache);
                         debug('read file', pathname, cache);
                     }
                     return cache;
@@ -48,4 +52,8 @@ function proxy(prefix, obj, options) {
             Object.defineProperty(obj, key, descriptor);
         });
     return obj;
+}
+
+function identity(value) {
+    return value;
 }
