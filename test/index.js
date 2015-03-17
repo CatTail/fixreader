@@ -32,9 +32,7 @@ describe('fixreader', function() {
     });
 
     it('should support post data process', function() {
-        fixtures = require('..')({handler: function(content) {
-            return JSON.parse(content);
-        }});
+        fixtures = require('..')({handler: JSON.parse});
         fixtures.handler.should.eql({hello: 'world'});
     });
 });
