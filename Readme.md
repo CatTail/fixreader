@@ -4,7 +4,7 @@
 
 ## Installation
 
-    npm install fixreader
+    npm install --save-dev fixreader
 
 ## Usage
 With fixture files
