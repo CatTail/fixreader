@@ -35,6 +35,14 @@ describe('fixreader', function() {
         fixtures = require('..')({handler: JSON.parse});
         fixtures.handler.should.eql({hello: 'world'});
     });
+
+    it('should supply pathname to handler', function() {
+        fixtures = require('..')({handler: function(content, pathname) {
+            pathname.should.be.type('string');
+            return JSON.parse(content);
+        }});
+        fixtures.handler.should.eql({hello: 'world'});
+    });
 });
 
 function read(path) {
