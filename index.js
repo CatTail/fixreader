@@ -35,7 +35,7 @@ function proxy(prefix, obj, options) {
                 descriptor.get = function() {
                     if (!cache) {
                         cache = fs.readFileSync(pathname, 'utf8');
-                        cache = options.handler(cache);
+                        cache = options.handler(cache, pathname);
                         debug('read file', pathname, cache);
                     }
                     return cache;
